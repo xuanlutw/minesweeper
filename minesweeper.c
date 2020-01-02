@@ -166,10 +166,10 @@ int update_board (Board* board, int x, int y) {
 }
 
 # define Count(x, y) \
-    count += In(board, x, y) && Flag(board, x, y);
+    count += In(board, x, y) && !Show(board, x, y) && Flag(board, x, y);
 # define Show_all(x, y) \
     if (In(board, x, y)) \
-        Show(board, x, y) = Show(board, x, y) || 1 - Flag(board, x, y);
+        Show(board, x, y) = Show(board, x, y) || (1 - Flag(board, x, y));
 int label_board (Board* board, int x, int y) {
     if (Show(board, x, y)) {
         int count = 0;
@@ -222,13 +222,14 @@ int main () {
         if (status == WIN) {
             cusor_set(width + 3, 0);
             printf("You win!\n");
-            return 0;
+            break;
         }
         else if (status == LOSE) {
-            cusor_set(width + 5, 0);
+            cusor_set(width + 3, 0);
             printf("You lose!\n");
-            return 0;
+            break;
         }
     }
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    return 0;
 }
