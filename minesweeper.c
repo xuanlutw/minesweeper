@@ -185,7 +185,7 @@ int label_board (Board* board, int x, int y) {
 }
 
 int main () {
-    int width, mines, x = 0, y = 0, status = 0;
+    int width, mines;
     char op;
     printf("Welcome to minesweeper!\n");
     printf("Width = ");
@@ -193,6 +193,7 @@ int main () {
     printf("#Mines = ");
     scanf("%d", &mines);
     getchar();
+    int x = width / 2, y = width / 2, status = 0;
 
     static struct termios oldt, newt;
     tcgetattr(STDIN_FILENO, &oldt);
@@ -201,7 +202,7 @@ int main () {
     tcsetattr(STDIN_FILENO, TCSANOW, &newt);
 
     Board* B = init_board(width, mines);
-    print_board(B, 0, 0);
+    print_board(B, x, y);
 
     while (1) {
         op = getchar();
